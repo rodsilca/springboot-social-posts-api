@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.rodsilca.springboot_social_posts_api.domain.User;
+import com.rodsilca.springboot_social_posts_api.dto.UserDTO;
 import com.rodsilca.springboot_social_posts_api.services.UserService;
 
 @RestController
@@ -17,8 +18,9 @@ public class UserResource {
 	private UserService service;
 
 	@GetMapping
-	public ResponseEntity<List<User>> findAll(){
+	public ResponseEntity<List<UserDTO>> findAll(){
 		List<User> usuarios = service.findAll();
-		return ResponseEntity.ok().body(usuarios);
+		List<UserDTO> listDto = usuarios.stream().map(x -> new UserDTO(x)).toList();
+		return ResponseEntity.ok().body(listDto);
 	}
 }
