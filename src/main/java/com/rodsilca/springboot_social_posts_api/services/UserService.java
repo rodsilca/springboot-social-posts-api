@@ -21,7 +21,7 @@ public class UserService {
 		return repository.findAll();
 	}
 	
-	public User fingById(String id) {
+	public User findById(String id) {
 		Optional<User> user = repository.findById(id);
 		return user.orElseThrow(() -> new ObjectNotFoundException("User not found: "+id));
 	}
@@ -35,7 +35,22 @@ public class UserService {
 	}
 	
 	public void delete(String id) {
-		fingById(id);
+		findById(id);
 		repository.deleteById(id);
 	}
+	
+	public User update(User obj) {
+		//Optional<User> newObj = repository.findById(obj.getId());
+		User newdfs = findById(obj.getId());
+		updateData(newdfs, obj);
+		return repository.save(newdfs);
+	}
+
+	private void updateData(User newObj, User obj) {
+		// TODO Auto-generated method stub
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
+	}
+	
+	
 }
