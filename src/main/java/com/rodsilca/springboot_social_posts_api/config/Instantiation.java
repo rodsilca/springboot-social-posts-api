@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.rodsilca.springboot_social_posts_api.domain.Post;
 import com.rodsilca.springboot_social_posts_api.domain.User;
+import com.rodsilca.springboot_social_posts_api.dto.AuthorDTO;
 import com.rodsilca.springboot_social_posts_api.repository.PostRepository;
 import com.rodsilca.springboot_social_posts_api.repository.UserRepository;
 
@@ -37,11 +38,13 @@ public class Instantiation implements CommandLineRunner{
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
 		User bob = new User(null, "Bob Grey", "bob@gmail.com");
 		
-		Post post1 = new Post(null, sdf.parse("21/03/2025"),"Viagem", "Vou viajar", maria);
-		Post post2 = new Post(null, sdf.parse("22/03/2025"),"htklsfklsdf", "Vou kfjsdkfjsd",maria );
-		
-		
 		userRepository.saveAll(Arrays.asList(maria,alex,bob));
+		
+		Post post1 = new Post(null, sdf.parse("21/03/2025"),"Viagem", "Vou viajar", new AuthorDTO(maria));
+		Post post2 = new Post(null, sdf.parse("22/03/2025"),"htklsfklsdf", "Vou kfjsdkfjsd",new AuthorDTO(maria) );
+		
+		
+		
 		postRepository.saveAll(Arrays.asList(post1,post2));
 		
 	}
